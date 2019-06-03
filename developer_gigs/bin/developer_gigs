@@ -1,0 +1,10 @@
+#!/usr/bin/env ruby 
+
+# require './lib/developer_gigs'
+
+require "bundler/setup"
+require "developer_gigs"
+
+
+DeveloperGigs::CLI.new.call  # CLI controller call
+# DeveloperGigs::Jobs.new.call # Jobs class load
