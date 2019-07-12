@@ -3,16 +3,28 @@ require 'httparty'
 
 class DeveloperGigs::Searches
     include HTTParty  
-    
-
-    attr_accessor :location, :keyword, :description 
-
-    @@jobs = []
-
   
+attr_accessor :results
+    
+@@jobs = []
+
+
+  def initialize(results) 
+   @@results = results.flatten.map   #Returns each  job listing as a seperate hash object
+   end
+
+#   def initialize(results)     #  returns  each listing  in one combined hash  
+#       results.each {|k,v| self.send(("#{k}="), v)}                        
+#   end
+
   def self.results
      @@jobs << @location
     #  @@jobs << @keyword 
+
+     @@jobs.map do |job|  
+        self.new(job)
+     end
+
     @@jobs[0] || 0
     
   end
@@ -31,8 +43,7 @@ class DeveloperGigs::Searches
         else 
             puts "Please type in a city,state,country, or zip code" 
         end
-
-        
+           
      end
 
      def self.clear_jobs
@@ -56,8 +67,7 @@ class DeveloperGigs::Searches
     #     #     puts "#{i}. #{kw["title"]} - #{kw["company"]} - #{kw["location"]} - #{kw["company_url"]}"
     #     #  end
  
-    #  end
-
+    
 
 end
 
