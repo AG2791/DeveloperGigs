@@ -1,6 +1,7 @@
 # CLI Controller 
 
 class DeveloperGigs::CLI 
+
    
    puts "Developer Gigs"
    
@@ -12,7 +13,7 @@ class DeveloperGigs::CLI
    end
 
    def search 
-      puts " To search for jobs near you type a City,State, or zip code, then click enter. Type 'exit' to exit program"         ## Maybe just use zip code instead  
+      puts " To search for jobs near you, type a City,State, or zip code, then click enter. Type 'exit' to exit program"         ## Maybe just use zip code instead  
       @zip_or_name = gets.strip
       if @zip_or_name == 'exit'
          exit 
@@ -20,22 +21,19 @@ class DeveloperGigs::CLI
       @location_input = DeveloperGigs::Searches.search_location(@zip_or_name)
       job_postings
       end
-      
-      
+   
    end
 
    def job_postings 
 
       puts "Found #{DeveloperGigs::Searches.count_elements} job posting(s)"     
 
-      @search = DeveloperGigs::Searches.results 
-      
-      @search.flatten.map.with_index(1) do |lc,i|
-   
-      puts "#{i}. #{lc["title"]} - #{lc["company"]} - #{lc["location"]} - #{lc["company_url"]}"
-      
+      @search = DeveloperGigs::Searches.results
+ 
+      @search.each.with_index(1) do |k,i| 
+     puts "#{i}. #{k["title"]} - #{k["company"]} - #{k["location"]} - #{k["company_url"]}" 
+  
      end
-
 
       if DeveloperGigs::Searches.count_elements != 0
        puts "Type the job number for more details or type 'search' to start a new search."
@@ -44,7 +42,6 @@ class DeveloperGigs::CLI
        puts "No Jobs found, type 'search' to start a new search"
        
        end
-
        job_details
   end
 
@@ -70,7 +67,8 @@ class DeveloperGigs::CLI
                else
                   puts  "Please type 'search' to start a new search, or 'exit' to exit program"
             end   
-         end      
+         end  
+      
    end
 
 
